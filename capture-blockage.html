@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>I'm Blocked</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/wireframe.css">
+    <link rel="stylesheet" href="/css/stylo.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+<body>
+
+  <div class="container h root" style="min-height: 800px; background-color: #DDD;">
+
+    <div class="container v">
+      <nav class="block"><a href="/">BlockAid</a></nav>
+      <form class="block">
+      	<div class="container v">
+	      	<label for="environment">Where are you primarily blocked</label>
+	      	<div class="container h"><input type="radio" name="environment" value="dev" >Dev</div>
+	      	<div class="container h"><input type="radio" name="environment" value="qa" />QA</div>
+	      	<div class="container h"><input type="radio" name="environment" value="prod" />Prod</div>
+        </div>        
+      </form>
+      <div class="container v">
+      	<fieldset class="block">
+		      <label>What is the error?</label>
+		      <textarea></textarea>
+	      </fieldset>
+  		</div>
+  		<div class="container">
+  			<h2>Did you try</h2>
+  			<ul>
+  				<li>Is it unplugged? Plug it in</li>
+  				<li>Restart mega?</li>
+  				<li>git pull orgin master</li>
+  		</div>
+    	<button class="block">Get Help</button>
+    
+  </div>
+</body>
+</html>
