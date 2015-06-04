@@ -1,0 +1,27 @@
+{
+  "name": "blockaid",
+  "version": "0.0.0",
+  "description": "Assists software development teams to keep contributors unblocked",
+  "main": "bot/bot.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo 'ha ha ha'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/austinking/blockaid.git"
+  },
+  "keywords": [
+    "app"
+  ],
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/austinking/blockaid/issues"
+  },
+  "homepage": "https://github.com/austinking/blockaid",
+  "dependencies": {
+    "node-hipchat": "^0.4.5"
+  }
+}
