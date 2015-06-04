@@ -1,45 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>I'm Blocked</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/wireframe.css">
-    <link rel="stylesheet" href="/css/stylo.css">
+    <head>
+        <meta charset="utf-8">
+        <title>BLOCKAID | I'm Blocked</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/css/reset.css">
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-<body>
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
 
-  <div class="container h root" style="min-height: 800px; background-color: #DDD;">
+    <body>    
+        <div class="container">
+            <div class="sidebar">
+                <div class="blockaid-logo"></div>
+                <button type="button">I'm blocked!</button>
+            </div>
 
-    <div class="container v">
-      <nav class="block"><a href="/">BlockAid</a></nav>
-      <a class="block" href="capture-blockage.html">I'm Blocked</a>
-      <div calss="block">
-        <h3>Recent Blockages</h3>
-        <ul class="block">
-          <li>Please Help -> Server won't start</li>
-          <li>Fixed - Can't connect to memcached</li>
-          <li>Fixed - Server stuck</li>
-        </ul>
-      </div>
-      <div calss="block">
-        <h3>Super Heros</h3>
-        <ul class="block">
-          <li>Jim McCabe</li>
-          <li>Dave Boon</li>
-          <li>Diana Tuck</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</body>
+            <div class="content">
+                <div class="blocked-list section">
+                    <h3 class="section-header"><i class="fa fa-warning section-header-icon"></i> Current Blockers</h3>
+                    <ul>
+                        <li><a href="/blocker-detail.html">Dev is unresponsive <i class="fa fa-chevron-right"></i></a></li>
+                        <li><a href="/blocker-detail.html">Managed data isn't returning my data <i class="fa fa-chevron-right"></i></a></li>
+                        <li><a href="/blocker-detail.html">Getting build error <i class="fa fa-chevron-right"></i></a></li>
+                        <li><a href="/blocker-detail.html">Dev is unresponsive <i class="fa fa-chevron-right"></i></a></li>
+                        <li><a href="/blocker-detail.html">Managed data isn't returning my data <i class="fa fa-chevron-right"></i></a></li>
+                        <li><a href="/blocker-detail.html">Getting build error <i class="fa fa-chevron-right"></i></a></li>
+                    </ul>
+                </div>
+
+                <div class="fixed-list section">
+                    <h3 class="section-header">Recently Fixed Blockers</h3>
+                    <ul>
+                        <li><a href="/blocker-detail.html">Dev is unresponsive</a></li>
+                        <li><a href="/blocker-detail.html">Managed data isn't returning my data</a></li>
+                        <li><a href="/blocker-detail.html">Getting build error</a></li>
+                        <li><a href="/blocker-detail.html">Dev is unresponsive</a></li>
+                        <li><a href="/blocker-detail.html">Managed data isn't returning my data</a></li>
+                        <li><a href="/blocker-detail.html">Getting build error</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
