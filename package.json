@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/austinking/blockaid",
   "dependencies": {
-    "node-hipchat": "^0.4.5"
+    "hipchatter": "^0.2.0"
   }
 }
