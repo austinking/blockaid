@@ -17,7 +17,10 @@
 
 <body></body>
 
-<template name="home">
+
+<!-- LAYOUT TEMPLATE -->
+
+<template name="appLayout">
     <div class="container">
         <div class="sidebar">
             <div><a href="/" class="blockaid-logo"></a></div>
@@ -25,76 +28,66 @@
         </div>
 
         <div class="content">
-            <div class="blocked-list section">
-                <h3 class="section-header"><i class="fa fa-warning section-header-icon"></i> Current Blockers</h3>
-                <ul>
-                    {{#each blockers}}
-                    <li><a href="/detail/{{_id}}">{{title}}<i class="fa fa-chevron-right"></i></a></li>
-                    {{/each}}
-                </ul>
-            </div>
-
-            <div class="fixed-list section">
-                <h3 class="section-header">Recently Fixed Blockers</h3>
-                <ul>
-                    {{#each resolvedBlockers}}
-                    <li><a href="/detail/{{_id}}">{{title}}</a></li>
-                    {{/each}}
-                </ul>
-            </div>
+            {{> yield}}
         </div>
+    </div>
+</template>
+
+
+<!-- PAGE TEMPLATES -->
+
+<template name="home">
+    <div class="blocked-list section">
+        <h3 class="section-header"><i class="fa fa-warning section-header-icon"></i> Current Blockers</h3>
+        <ul>
+            {{#each blockers}}
+            <li><a href="/detail/{{_id}}">{{title}}<i class="fa fa-chevron-right"></i></a></li>
+            {{/each}}
+        </ul>
+    </div>
+
+    <div class="fixed-list section">
+        <h3 class="section-header">Recently Fixed Blockers</h3>
+        <ul>
+            {{#each resolvedBlockers}}
+            <li><a href="/detail/{{_id}}">{{title}}</a></li>
+            {{/each}}
+        </ul>
     </div>
 </template>
 
 <template name="create">
-    <div class="container">
-        <div class="sidebar">
-            <div><a href="/" class="blockaid-logo"></a></div>
-        </div>
+    <div class="section">
+        <h3 class="section-header">What's blocking you?</h3>
 
-        <div class="content">
-            <div class="section">
-                <h3 class="section-header">What's blocking you?</h3>
-
-                <form class="new-blocker">
-                    <input type="text" name="title" class="blocker-title" placeholder="Blocker title">
-                    <textarea name="desc" class="blocker-description" placeholder="Blocker description"></textarea>
-                    <button type="submit" class="btn btn-teal u-marginTop20 u-pullRight">Announce Blocker</button>
-                </form>
-            </div>
-        </div>
+        <form class="new-blocker">
+            <input type="text" name="title" class="blocker-title" placeholder="Blocker title">
+            <textarea name="desc" class="blocker-description" placeholder="Blocker description"></textarea>
+            <button type="submit" class="btn btn-teal u-marginTop20 u-pullRight">Announce Blocker</button>
+        </form>
     </div>
 </template>
 
 <template name="detail">
-    <div class="container">
-        <div class="sidebar">
-            <div><a href="/" class="blockaid-logo"></a></div>
-            <a href="/create" class="btn">I'm blocked!</a>
-        </div>
+    <div class="section u-clearFix">
+        <h3 class="section-header">{{title}}</h3>
 
-        <div class="content">
-            <div class="section u-clearFix">
-                <h3 class="section-header">{{title}}</h3>
+        <p>{{desc}}</p>
 
-                <p>{{desc}}</p>
+        <button type="button" class="resolved btn u-marginTop20 u-pullRight">{{#unless resolved}}BlockAided!{{else}}Nope, still blocked{{/unless}}</button>
+    </div>
 
-                <button type="button" class="resolved btn u-marginTop20 u-pullRight">{{#unless resolved}}BlockAided!{{else}}Nope, still blocked{{/unless}}</button>
-            </div>
+    <div class="section">
+        <h4 class="section-header">Discussion</h4>
 
-            <div class="section">
-                <h4 class="section-header">Discussion</h4>
+        <div class="discussion">
+            {{#each comments}}
+            {{> comment}}
+            {{/each}}
 
-                <div class="discussion">
-                    {{#each comments}}
-                    {{> comment}}
-                    {{/each}}
-
-                    <form class="new-comment">
-                        <input type="text" name="comment" class="comment-text" placeholder="Add a comment"/>
-                    </form>
-                </div>
-            </div>
+            <form class="new-comment">
+                <input type="text" name="comment" class="comment-text" placeholder="Add a comment"/>
+            </form>
         </div>
     </div>
 </template>
