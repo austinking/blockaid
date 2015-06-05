@@ -70,7 +70,7 @@ Meteor.methods({
   },
   toggleResolved: function (id, resolved) {
     Meteor.call("checkLogin");
-    Blockers.update(id, {$set: {resolved: ! resolved}});
+    Blockers.update(id, {$set: {resolved: !resolved}});
   },
   addComment: function (blockerId, text) {
     Meteor.call("checkLogin");
@@ -83,12 +83,15 @@ Meteor.methods({
     });
   },
   checkLogin: function () {
-    if (! Meteor.userId()) {
+    if (!Meteor.userId()) {
       throw new Meteor.Error("not-authorized");
     }
   }
 });
 
+Router.configure({
+  layoutTemplate: 'appLayout'
+});
 Router.route('/', function () {
   this.render('home');
 });
