@@ -21,7 +21,10 @@
     <div class="container">
         <div class="sidebar">
             <div><a href="/" class="blockaid-logo"></a></div>
+            {{> loginButtons}}
+            {{#if currentUser}}
             <a href="/create" class="btn">I'm blocked!</a>
+            {{/if}}
         </div>
 
         <div class="content">
@@ -50,6 +53,7 @@
     <div class="container">
         <div class="sidebar">
             <div><a href="/" class="blockaid-logo"></a></div>
+            {{> loginButtons}}
         </div>
 
         <div class="content">
@@ -70,7 +74,10 @@
     <div class="container">
         <div class="sidebar">
             <div><a href="/" class="blockaid-logo"></a></div>
+            {{> loginButtons}}
+            {{#if currentUser}}
             <a href="/create" class="btn">I'm blocked!</a>
+            {{/if}}
         </div>
 
         <div class="content">
@@ -79,7 +86,9 @@
 
                 <p>{{desc}}</p>
 
+                {{#if currentUser}}
                 <button type="button" class="resolved btn u-marginTop20 u-pullRight">{{#unless resolved}}BlockAided!{{else}}Nope, still blocked{{/unless}}</button>
+                {{/if}}
             </div>
 
             <div class="section">
@@ -90,9 +99,11 @@
                     {{> comment}}
                     {{/each}}
 
+                    {{#if currentUser}}
                     <form class="new-comment">
                         <input type="text" name="comment" class="comment-text" placeholder="Add a comment"/>
                     </form>
+                    {{/if}}
                 </div>
             </div>
         </div>
@@ -101,7 +112,7 @@
 
 <template name="comment">
     <div class="discussion-item">
-        <strong class="discussion-item-title">Username
+        <strong class="discussion-item-title">{{username}}
             <small>{{createdAt}}</small>
         </strong>
 
