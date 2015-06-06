@@ -5,10 +5,22 @@ if (Meteor.isClient) {
   // This code only runs on the client
   Template.home.helpers({
     blockers: function () {
-      return Blockers.find({resolved: false});
+      var blockers = Blockers.find({resolved: false});
+      
+      if (blockers.count()) {
+        return blockers;
+      } else {
+        return false;
+      }
     },
     resolvedBlockers: function() {
-      return Blockers.find({resolved: true});
+      var resolvedBlockers = Blockers.find({resolved: true});
+      
+      if (resolvedBlockers.count()) {
+        return resolvedBlockers;
+      } else {
+        return false;
+      }
     }
   });
 

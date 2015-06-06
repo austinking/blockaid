@@ -40,18 +40,26 @@
     <div class="blocked-list section">
         <h3 class="section-header"><i class="fa fa-warning section-header-icon"></i> Current Blockers</h3>
         <ul>
-            {{#each blockers}}
-            <li><a href="/detail/{{_id}}">{{title}}<i class="fa fa-chevron-right"></i></a></li>
-            {{/each}}
+            {{#if blockers}}
+                {{#each blockers}}
+                    <li><a href="/detail/{{_id}}">{{title}}<i class="fa fa-chevron-right"></i></a></li>
+                {{/each}}
+            {{else}}
+                <p>No one is blocked! <small>Is this real life?</small></p>
+            {{/if}}
         </ul>
     </div>
 
     <div class="fixed-list section">
         <h3 class="section-header">Recently Fixed Blockers</h3>
         <ul>
-            {{#each resolvedBlockers}}
-            <li><a href="/detail/{{_id}}">{{title}}</a></li>
-            {{/each}}
+            {{#if resolvedBlockers}}
+                {{#each resolvedBlockers}}
+                    <li><a href="/detail/{{_id}}">{{title}}</a></li>
+                {{/each}}
+            {{else}}
+                <p>No resolved blockers, yet!</p>
+            {{/if}}
         </ul>
     </div>
 </template>
@@ -82,7 +90,7 @@
 
         <div class="discussion">
             {{#each comments}}
-            {{> comment}}
+                {{> comment}}
             {{/each}}
 
             <form class="new-comment">
