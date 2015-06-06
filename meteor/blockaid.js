@@ -3,6 +3,7 @@ Comments = new Mongo.Collection("comments");
 
 if (Meteor.isClient) {
   // This code only runs on the client
+  
   Template.home.helpers({
     blockers: function () {
       return Blockers.find({resolved: false});
@@ -65,7 +66,6 @@ if (Meteor.isClient) {
       if (confirm("Are you sure you want to remove this comment?")) {
         Meteor.call("removeComment", this._id, this.owner);
       }
-      return false;
     }
   });
 
