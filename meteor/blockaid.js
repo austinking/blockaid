@@ -24,8 +24,6 @@ if (Meteor.isClient) {
       Meteor.call("addBlocker", title, desc);
 
       window.location.assign("/");
-
-      // prevent default form submit
       return false;
     }
   });
@@ -46,7 +44,27 @@ if (Meteor.isClient) {
 
       Meteor.call("addComment", this._id, text);
       event.target.comment.value = "";
-      // prevent default form submit
+      return false;
+    }
+  });
+
+  Template.comment.helpers({
+    isOwner: function () {
+      return this.owner === Meteor.userId();
+    }
+  });
+
+  Template.comment.events({
+    "click .edit-comment": function () {
+      var text = prompt("Edit comment", this.text);
+      if (text != null) {
+        Meteor.call("editComment", this._id, this.owner, text);
+      }
+    },
+    "click .remove-comment": function () {
+      if (confirm("Are you sure you want to remove this comment?")) {
+        Meteor.call("removeComment", this._id, this.owner);
+      }
       return false;
     }
   });
@@ -58,7 +76,7 @@ if (Meteor.isClient) {
 
 Meteor.methods({
   addBlocker: function (title, desc) {
-    Meteor.call("checkLogin");
+    requireAuth();
     Blockers.insert({
       title: title,
       desc: desc,
@@ -69,11 +87,11 @@ Meteor.methods({
     });
   },
   toggleResolved: function (id, resolved) {
-    Meteor.call("checkLogin");
+    requireAuth();
     Blockers.update(id, {$set: {resolved: !resolved}});
   },
   addComment: function (blockerId, text) {
-    Meteor.call("checkLogin");
+    requireAuth();
     Comments.insert({
       blockerId: blockerId,
       text: text,
@@ -82,12 +100,26 @@ Meteor.methods({
       createdAt: new Date()
     });
   },
-  checkLogin: function () {
-    if (!Meteor.userId()) {
-      throw new Meteor.Error("not-authorized");
-    }
+  editComment: function (id, owner, text) {
+    requireOwner(owner);
+    Comments.update(id, {$set: {text: text}});
+  },
+  removeComment: function(id, owner) {
+    requireOwner(owner);
+    Comments.remove({_id: id});
   }
 });
+
+function requireAuth() {
+  if (!Meteor.userId()) {
+    throw new Meteor.Error("not-authorized");
+  }
+}
+function requireOwner(owner) {
+  if (owner != Meteor.userId()) {
+    throw new Meteor.Error("not-authorized");
+  }
+}
 
 Router.configure({
   layoutTemplate: 'appLayout'

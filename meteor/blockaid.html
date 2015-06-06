@@ -49,7 +49,7 @@
     </div>
 
     <div class="fixed-list section">
-        <h3 class="section-header">Recently Fixed Blockers</h3>
+        <h3 class="section-header">Resolved Blockers</h3>
         <ul>
             {{#each resolvedBlockers}}
             <li><a href="/detail/{{_id}}">{{title}}</a></li>
@@ -102,6 +102,10 @@
     <div class="discussion-item">
         <strong class="discussion-item-title">{{username}}
             <small>{{createdAt}}</small>
+            {{#if isOwner}}
+            <a class="edit-comment">{{title}}<i class="fa fa-pencil"></i></a>
+            <a class="remove-comment">{{title}}<i class="fa fa-times"></i></a>
+            {{/if}}
         </strong>
 
         <p>{{text}}</p>
