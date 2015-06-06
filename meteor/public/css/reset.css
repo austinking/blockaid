@@ -49,4 +49,5 @@ table {
 }
 textarea, input {
 	box-sizing: border-box;
+	max-width: 100%;
 }

@@ -7,5 +7,5 @@
 meteor-platform
 autopublish
 iron:router
-accounts-ui
+accounts-ui-unstyled
 accounts-password
