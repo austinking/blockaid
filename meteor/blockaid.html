@@ -22,8 +22,18 @@
 
 <template name="appLayout">
     <div class="container">
-        <div class="sidebar">
-            <div><a href="/" class="blockaid-logo"></a></div>
+        {{#with connStatus}}
+        <div class="sidebar {{#unless connected}}disabled{{/unless}}">
+                <div><a href="/" class="blockaid-logo"></a></div>
+                {{#unless connected}}
+                    <b><strong>Warning</strong> no connection: {{ status }}</b>
+                    {{#if reason}}
+                        reason: {{reason}}
+                    {{else}}
+                        Attempted to reconnect {{retryCount}} times.
+                        Next retry in: {{retryInSeconds}} seconds.
+                    {{/if}}
+                {{/unless}}
             {{> loginButtons}}
             {{#if currentUser}}
                 <a href="/create" class="btn create-blocker-btn">I'm blocked!</a>
@@ -33,6 +43,7 @@
         <div class="content">
             {{> yield}}
         </div>
+        {{/with}}
     </div>
 </template>
 
