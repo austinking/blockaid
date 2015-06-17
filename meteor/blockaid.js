@@ -1,7 +1,22 @@
 Blockers = new Mongo.Collection("blockers");
 Comments = new Mongo.Collection("comments");
 
-if (Meteor.isClient) {
+if (Meteor.isClient) {  
+  Template.appLayout.helpers({
+    /**
+     * Exposes http://docs.meteor.com/#/full/meteor_status
+     * adds a retryInSeconds property
+     */
+    connStatus: function() {
+      var data = Meteor.status();      
+      data.retryInSeconds = Math.round((data.retryTime - new Date()) / 1000);
+      if (isNaN(data.retryInSeconds)) {
+        data.retryInSeconds = 0;
+      }
+      return data;
+    }
+  });
+
   // This code only runs on the client
   
   Template.home.helpers({
