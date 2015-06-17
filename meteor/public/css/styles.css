@@ -97,6 +97,14 @@ a:hover {
 	max-width: 800px;
 }
 
+.disabled {
+	-webkit-filter: grayscale(100%);
+	-moz-filter: grayscale(100%);
+	-o-filter: grayscale(100%);
+	-ms-filter: grayscale(100%);
+	filter: grayscale(100%);
+}
+
 .sidebar {
 	left: 30px;
 	margin-right: 40px;
