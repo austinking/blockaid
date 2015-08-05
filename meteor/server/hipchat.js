@@ -29,9 +29,9 @@ pingHero = function (userId, url) {
   });
 };
 
-blockerResolved = function(userId, title, url) {
+sendBlockerResolved = function(userId, title, url) {
   hc.send_private_message(userId, {
-    message: ['W00t! <a href="', url, '">', title, '</a> is resolved'].join(),
+    message: ['W00t! <a href="', url, '">&ldquo;', title, '&rdquo;</a> is resolved'].join(''),
     notify: false,
     message_format: 'html'
   });
