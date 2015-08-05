@@ -119,7 +119,8 @@
 
 <template name="comment">
     <div class="discussion-item">
-        <strong class="discussion-item-title">{{username}}
+        <strong class="discussion-item-title">
+            <span class="discussion-item-userName">{{#if username}}{{username}}{{else}}Anonymous{{/if}}</span>
             <small>{{createdAt}}</small>
             {{#if isOwner}}
             <a class="edit-comment">{{title}}<i class="fa fa-pencil"></i></a>

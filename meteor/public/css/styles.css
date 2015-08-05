@@ -112,6 +112,9 @@ a:hover {
 	position: fixed;
 	top: 30px;
 }
+.sidebar .create-blocker-btn {
+	margin-top: 10px;
+}
 .sidebar .create-blocker-btn,
 .sidebar .login-link-text {
 	width: 100%;
@@ -202,11 +205,13 @@ a:hover {
 .discussion-item {
 	margin-bottom: 15px;
 }
+.discussion-item-userName {
+	padding-right: 15px;
+}
 .discussion-item-title small {
 	color: rgb(170, 170, 170);
 	font-size: 75%;
 	font-weight: normal;
-	padding-left: 15px;
 	text-transform: uppercase;
 }
 
