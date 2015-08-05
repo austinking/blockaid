@@ -1,9 +1,34 @@
 var fs = Npm.require('fs');
 var path = Npm.require('path');
 
+HipchatUsers = new Mongo.Collection("hipchat-users");
 
 var Hipchatter = Npm.require('hipchatter');
 var hc = new Hipchatter(Meteor.settings.hipchat_bot_token);
+
+refreshHipchatUserDB = function() {
+  hc.users(Meteor.bindEnvironment(function(err, users) {
+    if (err) {
+      console.log(err);
+    } else {
+      for( var i=0; i < users.length; i++) {
+        var user = users[i];
+        // Maintain a case insensitive mapping key
+        user.lc_username = user.mention_name.toLowerCase();
+        console.log(user);
+        var selector = {
+          lc_username: user.lc_username
+        };
+        HipchatUsers.upsert(selector, {$set: user});
+      }
+    }
+  }));
+}
+
+// Hipchat User object or undefined
+getHipchatUser(blockaidUsername) {
+  return HipchatUsers.findOne({lc_username: blockaidUsername.toLowerCase() });
+}
 
 //exports.
 newBlocker = function (userId, url) {

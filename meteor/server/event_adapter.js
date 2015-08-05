@@ -58,7 +58,7 @@ function blockerResolved(blockerId) {
     console.log('Ouch', blockerId);
     return;
   }
-  
+
   var title = blocker.title.substring(0, 60);
   var url = blockerUrl(blocker._id);
 
