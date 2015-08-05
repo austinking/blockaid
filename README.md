@@ -14,7 +14,11 @@ See the [lightning talk](http://austinking.github.io/blockaid/slides/lightning_t
   4) In a terminal (assuming you cloned into `src/blockaid`), do
 
 
-    $ cd src/blockaid/meteor
+    $ cd src/blockaid
+    $ npm install
+    $ cd meteor
+    $ cp settings.json-dist settings.json
+    # EDIT settings.json - as another dev if you need Hipchat or other secrets
     $ meteor --settings settings.json
     [[[[[ ~/src/blockaid/meteor ]]]]]
 
@@ -24,5 +28,13 @@ See the [lightning talk](http://austinking.github.io/blockaid/slides/lightning_t
 
 	=> App running at: http://localhost:3000/
 
+  5) Once you've made changes, make a pull request against from your fork.
 
-Once you've made changes, make a pull request against from your fork.
+## Tips
+
+You can get an interactive REPL on your live server with
+
+    $ meteor shell
+    >
+
+Use the `tab` key to explore objects and functions available in the app.

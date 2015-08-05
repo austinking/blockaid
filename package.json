@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/austinking/blockaid",
   "dependencies": {
-    "hipchatter": "^0.2.0"
+    "hipchatter": "^0.2.0",
+    "underscore": "^1.8.3"
   }
 }
