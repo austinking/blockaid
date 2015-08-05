@@ -54,13 +54,19 @@ event_init = function() {
 function blockerResolved(blockerId) {
   if (! blockerId) throw new Error('No blockerId');
   var blocker = Blockers.findOne(blockerId);
-  //TODO blockerUrl(blocker._id);
-  var url = 'http://localhost:3000/detail/' + blocker._id;
+  if (typeof blocker === 'undefined') {
+    console.log('Ouch', blockerId);
+    return;
+  }
+
+  var title = blocker.title.substring(0, 60);
+  var url = blockerUrl(blocker._id);
 
   //TODO get hipchatUserId from mongoUserId
   var userIds = allUserIdsForBlocker(blocker);
   if (true == true) return;
-  blockerResolved(hipchatUserId, blocker.title.substring(0, 60), url);
+  var hipchatUserId = 1073704;
+  sendBlockerResolved(hipchatUserId, title, url);
 }
 
 function allUserIdsForBlocker(blocker) {

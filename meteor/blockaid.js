@@ -1,18 +1,23 @@
 Blockers = new Mongo.Collection("blockers");
 Comments = new Mongo.Collection("comments");
 
-if (Meteor.isServer) {  
+if (Meteor.isServer) {
   event_init(Blockers, Comments);
+  // TODO - Ensure that this only runs infrequently...
+  if (HipchatUsers.find().count() === 0) {
+    console.log('Importing all users form Hipchat');
+    refreshHipchatUserDB();
+  }
 }
 
-if (Meteor.isClient) {  
+if (Meteor.isClient) {
   Template.appLayout.helpers({
     /**
      * Exposes http://docs.meteor.com/#/full/meteor_status
      * adds a retryInSeconds property
      */
     connStatus: function() {
-      var data = Meteor.status();      
+      var data = Meteor.status();
       data.retryInSeconds = Math.round((data.retryTime - new Date()) / 1000);
       if (isNaN(data.retryInSeconds)) {
         data.retryInSeconds = 0;
@@ -22,11 +27,11 @@ if (Meteor.isClient) {
   });
 
   // This code only runs on the client
-  
+
   Template.home.helpers({
     blockers: function () {
       var blockers = Blockers.find({resolved: false});
-      
+
       if (blockers.count()) {
         return blockers;
       } else {
@@ -35,7 +40,7 @@ if (Meteor.isClient) {
     },
     resolvedBlockers: function() {
       var resolvedBlockers = Blockers.find({resolved: true});
-      
+
       if (resolvedBlockers.count()) {
         return resolvedBlockers;
       } else {
