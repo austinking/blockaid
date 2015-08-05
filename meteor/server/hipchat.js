@@ -1,14 +1,11 @@
-var fs = require('fs');
-var path = require('path');
+var fs = Npm.require('fs');
+var path = Npm.require('path');
 
-var Hipchatter = require('hipchatter');
+var Hipchatter = Npm.require('hipchatter');
+var hc = new Hipchatter(Meteor.settings.hipchat_bot_token);
 
-var config = JSON.parse(
-	fs.readFileSync(path.join(__dirname, '../config/dev.json')));
-
-var hc = new Hipchatter(config.hipchat_bot_token);
-
-exports.newBlocker = function (userId, url) {
+//exports.
+newBlocker = function (userId, url) {
   hc.send_private_message(userId, {
     message: 'Keep trying to unblock yourself and post updates to ' +
       url + ' You can also share that link when asking for help. (blockaid)',
@@ -20,7 +17,8 @@ exports.newBlocker = function (userId, url) {
 };
 
 // People opt int
-exports.pingHero = function (userId, url) {
+//exports.
+pingHero = function (userId, url) {
   hc.send_private_message(userId, {
     message: 'You are a (blockaid) SuperHero! Got a moment to see if you can help? ' + url,
     notify: false,
@@ -49,7 +47,7 @@ var batch2 = [
 1528765, 606593, 1528763, 777811, 1574094, 1606980, 
 556839, 815598];
 
-var team = [
+var originalTeam = [
   533649, // Andrew F
   788980,  // Phillip 
   2016649, // Dierdre
@@ -57,15 +55,21 @@ var team = [
   1073704, // Austin
   533653 ];// Matt O
 
+var team = [1073704]; // Austin
+
 /*
 team.forEach(function(id, i) {
-  exports.pingHero(id, 'http://blockaid.meteor.com/detail/QndRZGn5SMdsoocy7');  
+  //exports.
+  pingHero(id, 'http://blockaid.meteor.com/detail/QndRZGn5SMdsoocy7');  
 });
 */
 
+/*
 batch1.forEach(function(id, i) {
   exports.pingHero(id, 'http://blockaid.meteor.com/detail/QndRZGn5SMdsoocy7');  
 });
 batch2.forEach(function(id, i) {
   exports.pingHero(id, 'http://blockaid.meteor.com/detail/oFN79TmdKDxxfrfzr');  
 });
+
+*/

@@ -15,7 +15,7 @@ See the [lightning talk](http://austinking.github.io/blockaid/slides/lightning_t
 
 
     $ cd src/blockaid/meteor
-    $ meteor
+    $ meteor --settings settings.json
     [[[[[ ~/src/blockaid/meteor ]]]]]
 
 	=> Started proxy.

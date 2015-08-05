@@ -8,8 +8,7 @@ Meteor.setTimeout(function() {
 }, 3000);
 
 // TODO: How can I access Comments and Blockers from blockaid.js here?
-event_init = function(Comments, Blockers) {
-  console.log('event_init called', Comments, Blockers);
+event_init = function(Comments, Blockers) {  
 	var dataTypes = [[Comments, 'Comments'], [Blockers, 'Blockers']];
 	for(var i in dataTypes) {
 		var T = dataTypes[i][0];
@@ -18,6 +17,9 @@ event_init = function(Comments, Blockers) {
 		query.observeChanges({
 		  added: function(id, fields) {		  	
 		  	if (report) console.log(TType + '.observeChanges added id=', id, 'fields=', fields);
+        if (report) {
+          pingHero(1073704, 'http://localhost:3000/detail/' + fields.blockerId);
+        }
 		  },
 		  changed: function(id, fields) {
 			if (report) console.log(TType + '.observeChanges changed id=', id, 'fields=', fields);
