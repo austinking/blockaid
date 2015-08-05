@@ -1,6 +1,10 @@
 Blockers = new Mongo.Collection("blockers");
 Comments = new Mongo.Collection("comments");
 
+if (Meteor.isServer) {  
+  event_init(Blockers, Comments);
+}
+
 if (Meteor.isClient) {  
   Template.appLayout.helpers({
     /**
