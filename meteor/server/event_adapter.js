@@ -1,3 +1,4 @@
+var _ = Npm.require('underscore');
 var startTime = new Date();
 
 // TODO: report flag should change to an algorithm that takes into account
@@ -8,25 +9,63 @@ Meteor.setTimeout(function() {
 }, 3000);
 
 // TODO: How can I access Comments and Blockers from blockaid.js here?
-event_init = function(Comments, Blockers) {  
-	var dataTypes = [[Comments, 'Comments'], [Blockers, 'Blockers']];
-	for(var i in dataTypes) {
-		var T = dataTypes[i][0];
-		var TType = dataTypes[i][1];
-		var query = T.find();
-		query.observeChanges({
-		  added: function(id, fields) {		  	
-		  	if (report) console.log(TType + '.observeChanges added id=', id, 'fields=', fields);
-        if (report) {
+event_init = function() {
+  var query = Blockers.find();
+  query.observeChanges({
+    added: function(id, fields) {
+      // A new blocker... ping heros
+      if (report) console.log('Blockers' + '.observeChanges added id=', id, 'fields=', fields);
+
+      if (false === true && report && !! fields.blockerId) {
+        pingHero(1073704, 'http://localhost:3000/detail/' + fields.blockerId);
+      }
+    },
+    changed: function(id, fields) {
+      if (typeof fields.resolved === 'boolean' && fields.resolved) {
+        blockerResolved(id);
+      }
+    if (report) console.log('Blockers' + '.observeChanges changed id=', id, 'fields=', fields);
+      allUserIdsForBlocker(id, fields);
+    },
+    removed: function(id) {
+    if (report) console.log('Blockers' + '.observeChanges removed id=', id);
+    }
+  });
+
+
+  query = Comments.find();
+    query.observeChanges({
+      added: function(id, fields) {
+        if (report) console.log('Comments' + '.observeChanges added id=', id, 'fields=', fields);
+        if (false === true && report && !! fields.blockerId) {
           pingHero(1073704, 'http://localhost:3000/detail/' + fields.blockerId);
         }
-		  },
-		  changed: function(id, fields) {
-			if (report) console.log(TType + '.observeChanges changed id=', id, 'fields=', fields);
-		  },
-		  removed: function(id) {
-			if (report) console.log(TType + '.observeChanges removed id=', id);
-		  }
-		});
-	}
+      },
+      changed: function(id, fields) {
+        if (report) console.log('Comments' + '.observeChanges changed id=', id, 'fields=', fields);
+      },
+      removed: function(id) {
+        if (report) console.log('Comments' + '.observeChanges removed id=', id);
+      }
+    });
+
+}
+
+function blockerResolved(blockerId) {
+  if (! blockerId) throw new Error('No blockerId');
+  var blocker = Blockers.findOne(blockerId);
+  //TODO blockerUrl(blocker._id);
+  var url = 'http://localhost:3000/detail/' + blocker._id;
+
+  //TODO get hipchatUserId from mongoUserId
+  var userIds = allUserIdsForBlocker(blocker);
+  if (true == true) return;
+  blockerResolved(hipchatUserId, blocker.title.substring(0, 60), url);
+}
+
+function allUserIdsForBlocker(blocker) {
+  var commentUserIds = Comments.find({blockerId: blocker._id })
+    .map(function(comment) { return comment.owner });
+
+  return _.uniq(_.union([blocker.owner], commentUserIds));
 }
