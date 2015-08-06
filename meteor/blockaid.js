@@ -62,7 +62,7 @@ if (Meteor.isClient) {
         if (err) {
           console.log(err);
         } else if (isUsernameValid === false) {
-          window.location.assign('/bad-username');
+          //window.location.assign('/bad-username');
         }
       });
     }, 1000);
