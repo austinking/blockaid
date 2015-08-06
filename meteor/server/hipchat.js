@@ -53,7 +53,7 @@ advertiseNewBlocker = function(blocker) {
     notify: false,
     message_format: 'html'
   }, function(err, body, resCode) {
-    console.log('err=', err, 'unknown=', unknown, 'resCode=', resCode);
+    console.log('err=', err, 'body=', body, 'resCode=', resCode);
   });
 };
 
@@ -73,6 +73,8 @@ sendBlockerResolved = function(userId, title, url) {
     message: ['W00t! <a href="', url, '">&ldquo;', title, '&rdquo;</a> is resolved'].join(''),
     notify: false,
     message_format: 'html'
+  }, function(err, body, resCode) {
+    console.log(err, body, resCode);
   });
 }
 
@@ -86,4 +88,14 @@ sendUsernameChanged = function(userId, oldUsername, newUsername) {
   }, function(err, body, resCode) {
     console.log(err, body, resCode);
   });
+}
+
+// TODO - Ensure that this only runs infrequently...
+// This can be tested with
+// $ meteor shell
+// > HipchatUsers.remove({})
+// > .reload
+if (HipchatUsers.find().count() === 0) {
+  console.log('Importing all users form Hipchat');
+  refreshHipchatUserDB();
 }
