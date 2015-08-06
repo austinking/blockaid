@@ -1,8 +1,9 @@
 Blockers = new Mongo.Collection("blockers");
 Comments = new Mongo.Collection("comments");
+PlusOnes = new Mongo.Collection("plusOnes");
 
 if (Meteor.isServer) {
-  event_init(Blockers, Comments);
+  event_init(Blockers, Comments, PlusOnes);
   // TODO - Ensure that this only runs infrequently...
   if (HipchatUsers.find().count() === 0) {
     console.log('Importing all users form Hipchat');
@@ -67,13 +68,22 @@ if (Meteor.isClient) {
 
   Template.detail.helpers({
     comments: function() {
-      return Comments.find({ blockerId: this._id})
+      return Comments.find({ blockerId: this._id });
+    },
+    plusOnes: function () {
+      return PlusOnes.find({ blockerId: this._id });
+    },
+    plusOneCount: function () {
+      return PlusOnes.find({ blockerId: this._id }).count();
     }
   });
 
   Template.detail.events({
     "click .resolved": function () {
       Meteor.call("toggleResolved", this._id, this.resolved);
+    },
+    "click .plus-one": function () {
+      Meteor.call("addPlusOne", this._id, Meteor.userId());
     },
     "submit .new-comment": function (event) {
       var text = event.target.comment.value;
@@ -119,12 +129,23 @@ Meteor.methods({
       owner: Meteor.userId(),
       username: Meteor.user().username,
       resolved: false,
-      createdAt: new Date()
+      createdAt: new Date(),
+      plusOnes: []
     });
   },
   toggleResolved: function (id, resolved) {
     requireAuth();
     Blockers.update(id, {$set: {resolved: !resolved}});
+  },
+  addPlusOne: function (id, userId) {
+    requireAuth();
+
+    PlusOnes.insert({
+      blockerId: id,
+      owner: Meteor.userId(),
+      username: Meteor.user().username,
+      createdAt: new Date()
+    })
   },
   addComment: function (blockerId, text) {
     requireAuth();
