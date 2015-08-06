@@ -107,3 +107,14 @@ batch2.forEach(function(id, i) {
 });
 
 */
+
+sendUsernameChanged = function(userId, oldUsername, newUsername) {
+  hc.send_private_message(userId, {
+    message: 'You have successfully changed your username from ' + oldUsername + ' to <strong>' + 
+    newUsername + '</strong>',
+    notify: false,
+    message_format: 'html'
+  }, function(err, unknown, resCode) {
+    console.log(err, unknown, resCode);
+  });
+}

@@ -136,3 +136,18 @@
         <p>{{text}}</p>
     </div>
 </template>
+
+<template name="badUsername">
+    <div class="section u-clearFix">
+        <h3 class="section-header">Bad Username!</h3>
+        <p>Your username <strong><code>{{currentUser.username}}</code></strong> does not match
+            any HipChat usernames.</p>
+        <p>Please change your username to match your "HipChat @mention name". You can find this by in HipChat &gt; Preferences &gt; Accounts</p>
+
+        <form id="bad-username-form">
+            <fieldset><label for="username">username</label></fieldset>
+            <input id="username" value="{{currentUser.username}}" />
+            <button>Update username</button>
+        </form>
+    </div>
+</template>

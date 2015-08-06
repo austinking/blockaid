@@ -1,6 +1,6 @@
 [x] A developer can see open blockers and report a new blocker situation
 
-[ ] Developers can flag a blocker as affecting them as well
+[ ] #15 Developers can flag a blocker as affecting them as well
 
 A Super Hero(or heros) can flag that they are helping fix the blocker
 

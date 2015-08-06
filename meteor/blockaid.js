@@ -62,7 +62,7 @@ if (Meteor.isClient) {
         if (err) {
           console.log(err);
         } else if (isUsernameValid === false) {
-          //window.location.assign('/bad-username');
+          window.location.assign('/bad-username');
         }
       });
     }, 1000);
@@ -149,8 +149,21 @@ if (Meteor.isServer) {
       } else {
         return true;
       }
-    }
+    },
+    changeUsername: function(username) {
+      var hcUser = getHipchatUser(username);
 
+      if (hcUser === undefined) {
+        throw new Error('Unknown Hipchat Username');
+      } else {
+        var userId = Meteor.user()._id;
+        var u = Meteor.user();
+        var oldUsername = u.username;
+        Meteor.users.update({ _id: userId }, { $set: {username: username}});
+        sendUsernameChanged(hcUser.id, oldUsername, username);
+        return true;
+      }
+    }
   });
 }
 
@@ -229,3 +242,4 @@ Router.route('/detail/:_id', function () {
     }
   });
 });
+Router.route('/bad-username');
