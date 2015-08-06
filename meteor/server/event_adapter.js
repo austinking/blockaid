@@ -25,7 +25,6 @@ event_init = function() {
         blockerResolved(id);
       }
       if (report) console.log('Blockers' + '.observeChanges changed id=', id, 'fields=', fields);
-      allUserIdsForBlocker(id, fields);
     },
     removed: function(id) {
       if (report) console.log('Blockers' + '.observeChanges removed id=', id);
@@ -64,7 +63,10 @@ function blockerResolved(blockerId) {
 
   //TODO get hipchatUserId from mongoUserId
   var userIds = allUserIdsForBlocker(blocker);
-  if (true == true) return;
+  if (true == true) {
+    console.log('sending Blcoker Resolved to ', userIds, title, url);
+    return;
+  }
   var hipchatUserId = 1073704;
   sendBlockerResolved(hipchatUserId, title, url);
 }
@@ -72,6 +74,11 @@ function blockerResolved(blockerId) {
 function allUserIdsForBlocker(blocker) {
   var commentUserIds = Comments.find({blockerId: blocker._id })
     .map(function(comment) { return comment.owner });
+
+  var plusOneUserIds = PlusOnes.find({blockerId: blocker._id })
+    .map(function(plusOne) { return plusOne.owner });
+
+  console.log(plusOneUserIds);
 
   return _.uniq(_.union([blocker.owner], commentUserIds));
 }
