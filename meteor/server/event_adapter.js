@@ -78,7 +78,5 @@ function allUserIdsForBlocker(blocker) {
   var plusOneUserIds = PlusOnes.find({blockerId: blocker._id })
     .map(function(plusOne) { return plusOne.owner });
 
-  console.log(plusOneUserIds);
-
-  return _.uniq(_.union([blocker.owner], commentUserIds));
+  return _.uniq(_.union([blocker.owner], commentUserIds, plusOneUserIds));
 }
