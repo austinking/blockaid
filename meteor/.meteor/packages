@@ -10,3 +10,4 @@ iron:router
 accounts-ui-unstyled
 accounts-password
 underscore
+momentjs:moment

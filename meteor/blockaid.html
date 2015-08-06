@@ -92,15 +92,29 @@
 
 <template name="detail">
     <div class="section u-clearFix">
-        <h3 class="section-header">{{title}}</h3>
+        <h3 class="section-header">{{title}} <small>{{createdAt}}</small></h3>
 
         <p>{{desc}}</p>
 
+        {{#if plusOnes}}
+            <div class="u-marginTop20">
+                <p><strong>{{plusOneCount}}</strong> other(s) blocked</p>
+                <ul class="u-listUnstyled">
+                    {{#each plusOnes}}
+                        <li>{{username}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+        {{/if}}
+
         {{#if currentUser}}
             <div class="u-marginTop20 u-pullRight">
-                +{{plusOneCount}}
-                <button type="button" class="plus-one btn btn-grey">Me too!</button>
-                <button type="button" class="resolved btn">{{#unless resolved}}BlockAided!{{else}}Nope, still blocked{{/unless}}</button>
+                {{#unless hasPlusOned}}<button type="button" class="plus-one btn btn-grey">Ugh, me too</button>{{/unless}}
+                {{#unless resolved}}
+                    <button type="button" class="resolved btn btn-teal">BlockAided!</button>
+                {{else}}
+                    <button type="button" class="resolved btn btn-grey">Nope, still blocked</button>
+                {{/unless}}
             </div>
         {{/if}}
     </div>
@@ -127,9 +141,10 @@
         <strong class="discussion-item-title">
             <span class="discussion-item-userName">{{#if username}}{{username}}{{else}}Anonymous{{/if}}</span>
             <small>{{createdAt}}</small>
+
             {{#if isOwner}}
-            <a class="edit-comment">{{title}}<i class="fa fa-pencil"></i></a>
-            <a class="remove-comment">{{title}}<i class="fa fa-times"></i></a>
+                <a class="edit-comment">{{title}}<i class="fa fa-pencil"></i></a>
+                <a class="remove-comment">{{title}}<i class="fa fa-times"></i></a>
             {{/if}}
         </strong>
 
