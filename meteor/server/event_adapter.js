@@ -14,10 +14,9 @@ event_init = function() {
   query.observeChanges({
     added: function(id, fields) {
       // A new blocker... ping heros
-      if (report) console.log('Blockers' + '.observeChanges added id=', id, 'fields=', fields);
-
-      if (false === true && report && !! fields.blockerId) {
-        pingHero(1073704, 'http://localhost:3000/detail/' + fields.blockerId);
+      if (report) {
+        console.log('Blockers' + '.observeChanges added id=', id, 'fields=', fields);
+        advertiseNewBlocker(Blockers.findOne(id));
       }
     },
     changed: function(id, fields) {

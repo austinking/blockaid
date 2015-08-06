@@ -31,26 +31,40 @@ getHipchatUser = function(blockaidUsername) {
 };
 
 //exports.
-newBlocker = function (userId, url) {
+newBlockerKeepGoing = function (userId, url) {
   hc.send_private_message(userId, {
     message: 'Keep trying to unblock yourself and post updates to ' +
       url + ' You can also share that link when asking for help. (blockaid)',
     notify: false,
     message_format: 'text'
-  }, function(err, unknown, resCode) {
-    console.log(err, unknown, resCode);
+  }, function(err, body, resCode) {
+    console.log(err, body, resCode);
   });
 };
 
-// People opt int
+advertiseNewBlocker = function(blocker) {
+  var blockaidRoomId = Meteor.settings.hipchat_annouce_channel;
+  var url = blockerUrl + '/detail/' + blocker._id;
+  var title = blocker.title.substring(0, 60);
+
+  hc.notify(blockaidRoomId, {
+    message: ['@', blocker.username, ' has reported a new Blocker ',
+    '<a href="' + url + '">&ldquo;', title, '&rdquo;</a>'].join(''),
+    notify: false,
+    message_format: 'html'
+  }, function(err, body, resCode) {
+    console.log('err=', err, 'unknown=', unknown, 'resCode=', resCode);
+  });
+};
+
 //exports.
 pingHero = function (userId, url) {
   hc.send_private_message(userId, {
     message: 'You are a (blockaid) SuperHero! Got a moment to see if you can help? ' + url,
     notify: false,
     message_format: 'text'
-  }, function(err, unknown, resCode) {
-    console.log(err, unknown, resCode);
+  }, function(err, body, resCode) {
+    console.log(err, body, resCode);
   });
 };
 
@@ -69,7 +83,7 @@ sendUsernameChanged = function(userId, oldUsername, newUsername) {
     newUsername + '</strong>',
     notify: false,
     message_format: 'html'
-  }, function(err, unknown, resCode) {
-    console.log(err, unknown, resCode);
+  }, function(err, body, resCode) {
+    console.log(err, body, resCode);
   });
 }
