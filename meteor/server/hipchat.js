@@ -27,6 +27,7 @@ refreshHipchatUserDB = function() {
 
 // Hipchat User object or undefined
 getHipchatUser = function(blockaidUsername) {
+  check(blockaidUsername, String);
   return HipchatUsers.findOne({lc_username: blockaidUsername.toLowerCase() });
 };
 
