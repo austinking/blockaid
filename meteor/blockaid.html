@@ -36,6 +36,7 @@
                 {{/unless}}
             {{> loginButtons}}
             {{#if currentUser}}
+                <div id="current-username">{{ currentUser.username }}</div>
                 <a href="/create" class="btn create-blocker-btn">I'm blocked!</a>
             {{/if}}
         </div>
@@ -130,3 +131,6 @@
         <p>{{text}}</p>
     </div>
 </template>
+
+
+AOK - Made bad-username page

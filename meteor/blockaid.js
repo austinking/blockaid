@@ -49,6 +49,24 @@ if (Meteor.isClient) {
     }
   });
 
+
+  Template.appLayout.onRendered(function() {
+    //TODO if we don't setTimeout there is no current-username DOM elment... why?
+    if (window.location.pathname === '/bad-username') {
+      return;
+    }
+    setTimeout(function() {
+      var username = document.getElementById('current-username').innerText;
+      Meteor.call('validateUsername', username, function(err, isUsernameValid) {
+        if (err) {
+          console.log(err);
+        } else if (isUsernameValid === false) {
+          window.location.assign('/bad-username');
+        }
+      });
+    }, 1000);
+  });
+
   Template.create.events({
     "submit .new-blocker": function (event) {
       // This function is called when the new blocker form is submitted
@@ -110,6 +128,22 @@ if (Meteor.isClient) {
   });
 }
 
+if (Meteor.isServer) {
+  Meteor.methods({
+    validateUsername: function(username) {
+      console.log('validateUsername server right? username=', username);
+      var hcUsername = getHipchatUser(username);
+      console.log('getHipchatUser returned hcUsername=', hcUsername);
+      if (hcUsername === undefined) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+  });
+}
+
 Meteor.methods({
   addBlocker: function (title, desc) {
     requireAuth();
@@ -161,6 +195,8 @@ Router.configure({
   layoutTemplate: 'appLayout'
 });
 Router.route('/', function () {
+  console.log('home');
+  console.log(Meteor.user());
   this.render('home');
 });
 Router.route('/create');
