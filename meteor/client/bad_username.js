@@ -1,7 +1,7 @@
 Template.appLayout.onRendered(function() {
-  var form = document.getElementById('bad-username-form');
-  if (! form) return;
-  form.addEventListener('submit', submitForm, false);
+    var form = document.getElementById('bad-username-form');
+    if (! form) return;
+    form.addEventListener('submit', submitForm, false);
 }, false);
 
 function submitForm(e) {
@@ -9,7 +9,7 @@ function submitForm(e) {
 	var usernameInput = document.getElementById('username');
 	Meteor.call('changeUsername', usernameInput.value, function(err, isUsernameValid) {
         if (err) {
-          console.log(err);
+            console.log(err);
         } else if (isUsernameValid === false) {
             console.log('Bad username');
         } else {
