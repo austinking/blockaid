@@ -1,6 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Arvo:400,700);
 @import url(http://fonts.googleapis.com/css?family=Fira+Sans:400,700);
 
+
 html {
 	background-color: rgb(245, 245, 245);
 	font-size: 62.5%;
@@ -18,7 +19,7 @@ input, textarea {
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset;
 	padding: 5px 8px;
 }
-h1, h2, h3, h4, h5, h6, a.btn, button {
+h1, h2, h3, h4, h5, h6, a.btn, .login-link-text, button {
 	font-family: 'Arvo', sans-serif;
 }
 h1 { font-size: 4.8rem; }
@@ -41,8 +42,7 @@ a:hover {
 }
 
 .btn,
-.login-link-text,
-.login-button {
+.login-link-text {
 	background: rgb(255, 212, 77);
 	border-radius: 3px;
 	border: none;
@@ -54,17 +54,15 @@ a:hover {
 	padding: 10px 10px 15px;
 	text-align: center;
 }
-.btn-teal,
-.login-button {
+.btn-teal {
 	background: rgb(0, 127, 168);
 	color: white !important;
 }
 .btn-grey {
-	background: rgb(150, 150, 150);
+	background: rgb(153, 153, 153);
 	color: white !important;
 }
-.btn-sm,
-.login-button {
+.btn-sm {
 	padding: 4px 8px 9px;
 }
 
@@ -108,7 +106,7 @@ a:hover {
 .sidebar {
 	left: 30px;
 	margin-right: 40px;
-	width: 125px;
+	width: 185px;
 	position: fixed;
 	top: 30px;
 }
@@ -120,15 +118,26 @@ a:hover {
 	width: 100%;
 }
 .sidebar .accounts-dialog {
-	margin-top: 25px;
+	margin: 25px 0 15px;
+	padding: 0 10px;
 }
 .sidebar .login-close-text {
+	cursor: pointer;
 	font-size: 12px;
 	float: right;
 	margin-top: -20px;
 }
 .sidebar .login-button {
+	color: rgb(0, 127, 168);
+	cursor: pointer;
   	margin-top: 10px;
+}
+.sidebar .login-button:hover {
+	color: rgb(255, 129, 0);
+}
+.sidebar .login-button:before {
+	color: #333;
+	content: "\000BB";
 }
 .sidebar [id$="-label-and-input"] {
 	margin-bottom: 5px;
@@ -146,13 +155,13 @@ a:hover {
 	background-size: contain;
 	display: block;
 	height: 158px;
-	margin-bottom: 30px;
+	margin: 0 auto 30px;
 	width: 125px;
 }
 
 .content {
 	flex: 1;
-	margin-left: 165px;
+	margin-left: 225px;
 }
 
 .section {
@@ -167,6 +176,11 @@ a:hover {
 }
 .section-header {
 	margin-bottom: 20px;
+}
+.seciton-header small {
+    color: rgb(153, 153, 153);
+    font-family: 'Fira Sans';
+	font-size: 13px;
 }
 .section-header-icon {
 	color: rgb(255, 0, 0);
@@ -209,7 +223,7 @@ a:hover {
 	padding-right: 15px;
 }
 .discussion-item-title small {
-	color: rgb(170, 170, 170);
+	color: rgb(153, 153, 153);
 	font-size: 75%;
 	font-weight: normal;
 	text-transform: uppercase;
