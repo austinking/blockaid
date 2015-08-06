@@ -24,11 +24,11 @@ event_init = function() {
       if (typeof fields.resolved === 'boolean' && fields.resolved) {
         blockerResolved(id);
       }
-    if (report) console.log('Blockers' + '.observeChanges changed id=', id, 'fields=', fields);
+      if (report) console.log('Blockers' + '.observeChanges changed id=', id, 'fields=', fields);
       allUserIdsForBlocker(id, fields);
     },
     removed: function(id) {
-    if (report) console.log('Blockers' + '.observeChanges removed id=', id);
+      if (report) console.log('Blockers' + '.observeChanges removed id=', id);
     }
   });
 
