@@ -97,7 +97,11 @@
         <p>{{desc}}</p>
 
         {{#if currentUser}}
-        <button type="button" class="resolved btn u-marginTop20 u-pullRight">{{#unless resolved}}BlockAided!{{else}}Nope, still blocked{{/unless}}</button>
+            <div class="u-marginTop20 u-pullRight">
+                +{{plusOneCount}}
+                <button type="button" class="plus-one btn btn-grey">Me too!</button>
+                <button type="button" class="resolved btn">{{#unless resolved}}BlockAided!{{else}}Nope, still blocked{{/unless}}</button>
+            </div>
         {{/if}}
     </div>
 
@@ -120,7 +124,8 @@
 
 <template name="comment">
     <div class="discussion-item">
-        <strong class="discussion-item-title">{{username}}
+        <strong class="discussion-item-title">
+            <span class="discussion-item-userName">{{#if username}}{{username}}{{else}}Anonymous{{/if}}</span>
             <small>{{createdAt}}</small>
             {{#if isOwner}}
             <a class="edit-comment">{{title}}<i class="fa fa-pencil"></i></a>
