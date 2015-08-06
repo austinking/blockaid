@@ -3,7 +3,6 @@ var path = Npm.require('path');
 
 HipchatUsers = new Mongo.Collection("hipchat-users");
 
-var Hipchatter = Npm.require('hipchatter');
 var hc = new Hipchatter(Meteor.settings.hipchat_bot_token);
 
 refreshHipchatUserDB = function() {
