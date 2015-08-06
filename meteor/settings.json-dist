@@ -1,4 +1,5 @@
 {
+  "hipchat_annouce_channel": "1594354",
   "baseUrl": "http://localhost:3000",
   "hipchat_bot_token": "SET-ME-PLEASE"
 }

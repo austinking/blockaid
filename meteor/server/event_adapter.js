@@ -1,4 +1,4 @@
-var _ = Npm.require('underscore');
+//TODO remove node_modules/underscore
 var startTime = new Date();
 
 // TODO: report flag should change to an algorithm that takes into account
@@ -14,21 +14,19 @@ event_init = function() {
   query.observeChanges({
     added: function(id, fields) {
       // A new blocker... ping heros
-      if (report) console.log('Blockers' + '.observeChanges added id=', id, 'fields=', fields);
-
-      if (false === true && report && !! fields.blockerId) {
-        pingHero(1073704, 'http://localhost:3000/detail/' + fields.blockerId);
+      if (report) {
+        console.log('Blockers' + '.observeChanges added id=', id, 'fields=', fields);
+        advertiseNewBlocker(Blockers.findOne(id));
       }
     },
     changed: function(id, fields) {
       if (typeof fields.resolved === 'boolean' && fields.resolved) {
         blockerResolved(id);
       }
-    if (report) console.log('Blockers' + '.observeChanges changed id=', id, 'fields=', fields);
-      allUserIdsForBlocker(id, fields);
+      if (report) console.log('Blockers' + '.observeChanges changed id=', id, 'fields=', fields);
     },
     removed: function(id) {
-    if (report) console.log('Blockers' + '.observeChanges removed id=', id);
+      if (report) console.log('Blockers' + '.observeChanges removed id=', id);
     }
   });
 
@@ -48,8 +46,7 @@ event_init = function() {
         if (report) console.log('Comments' + '.observeChanges removed id=', id);
       }
     });
-
-}
+};
 
 function blockerResolved(blockerId) {
   if (! blockerId) throw new Error('No blockerId');
@@ -63,15 +60,28 @@ function blockerResolved(blockerId) {
   var url = blockerUrl(blocker._id);
 
   //TODO get hipchatUserId from mongoUserId
-  var userIds = allUserIdsForBlocker(blocker);
-  if (true == true) return;
+  var usernames = allUsernamesForBlocker(blocker);
+  console.log('sending Blocker Resolved to ', usernames, title, url);
+
   var hipchatUserId = 1073704;
-  sendBlockerResolved(hipchatUserId, title, url);
+  usernames.forEach(function(username) {
+    var hcUser = getHipchatUser(username);
+    if (hcUser) {
+      console.log('really sending ', hcUser);
+      sendBlockerResolved(hcUser.id, title, url);
+    } else {
+      console.log('user', mongoUserId, ' did not map to a hipchat user');
+    }
+  });
+
 }
 
-function allUserIdsForBlocker(blocker) {
-  var commentUserIds = Comments.find({blockerId: blocker._id })
-    .map(function(comment) { return comment.owner });
+function allUsernamesForBlocker(blocker) {
+  var commentUsernames = Comments.find({blockerId: blocker._id })
+    .map(function(comment) { return comment.username });
 
-  return _.uniq(_.union([blocker.owner], commentUserIds));
+  var plusOneUsernames = PlusOnes.find({blockerId: blocker._id })
+    .map(function(plusOne) { return plusOne.username });
+
+  return _.uniq(_.union([blocker.username], commentUsernames, plusOneUsernames));
 }

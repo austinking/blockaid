@@ -8,9 +8,9 @@ See the [lightning talk](http://austinking.github.io/blockaid/slides/lightning_t
   1) [Fork this Repo](https://github.com/austinking/blockaid#fork-destination-box)
 
   2) Clone to your local machine
-  
+
   3) [Install](https://www.meteor.com/install) the latest meteor
-  
+
   4) In a terminal (assuming you cloned into `src/blockaid`), do
 
 
@@ -38,3 +38,18 @@ You can get an interactive REPL on your live server with
     >
 
 Use the `tab` key to explore objects and functions available in the app.
+
+## Settings
+
+Various notes about `settings.json`.
+
+### hipchat_bot_token
+
+We created a HipChat user called BlockAid and then used their HipChat token.
+
+### hipchat_annouce_channel
+
+* During development and testing, set this to `1594354` which is the Blockaid dev channel
+* In production, set this to `338079` which is the ***Engineering*** channel.
+
+Having trouble discovering HipChat room ids? Use the web client and look at the urls.

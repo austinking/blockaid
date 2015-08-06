@@ -23,34 +23,48 @@ refreshHipchatUserDB = function() {
       }
     }
   }));
-}
+};
 
 // Hipchat User object or undefined
 getHipchatUser = function(blockaidUsername) {
   return HipchatUsers.findOne({lc_username: blockaidUsername.toLowerCase() });
-}
+};
 
 //exports.
-newBlocker = function (userId, url) {
+newBlockerKeepGoing = function (userId, url) {
   hc.send_private_message(userId, {
     message: 'Keep trying to unblock yourself and post updates to ' +
       url + ' You can also share that link when asking for help. (blockaid)',
     notify: false,
     message_format: 'text'
-  }, function(err, unknown, resCode) {
-    console.log(err, unknown, resCode);
+  }, function(err, body, resCode) {
+    console.log(err, body, resCode);
   });
 };
 
-// People opt int
+advertiseNewBlocker = function(blocker) {
+  var blockaidRoomId = Meteor.settings.hipchat_annouce_channel;
+  var url = blockerUrl + '/detail/' + blocker._id;
+  var title = blocker.title.substring(0, 60);
+
+  hc.notify(blockaidRoomId, {
+    message: ['@', blocker.username, ' has reported a new Blocker ',
+    '<a href="' + url + '">&ldquo;', title, '&rdquo;</a>'].join(''),
+    notify: false,
+    message_format: 'html'
+  }, function(err, body, resCode) {
+    console.log('err=', err, 'body=', body, 'resCode=', resCode);
+  });
+};
+
 //exports.
 pingHero = function (userId, url) {
   hc.send_private_message(userId, {
     message: 'You are a (blockaid) SuperHero! Got a moment to see if you can help? ' + url,
     notify: false,
     message_format: 'text'
-  }, function(err, unknown, resCode) {
-    console.log(err, unknown, resCode);
+  }, function(err, body, resCode) {
+    console.log(err, body, resCode);
   });
 };
 
@@ -59,62 +73,29 @@ sendBlockerResolved = function(userId, title, url) {
     message: ['W00t! <a href="', url, '">&ldquo;', title, '&rdquo;</a> is resolved'].join(''),
     notify: false,
     message_format: 'html'
+  }, function(err, body, resCode) {
+    console.log(err, body, resCode);
   });
 }
 
-var andrewF = 533649
-//exports.newBlocker(andrewF, 'http://blockaid.meteor.com/detail/QndRZGn5SMdsoocy7');
-
-var batch1 = [
-533650, 1088992, 1970855, 533649, 789246, 1088987, 1073704,
-1507494, 540458, 1576166, 941326, 2006290, 1783788, 1574091,
-604161, 599968, 1868059, 1655007, 1074195, 651877,
-643131, 1439264, 1814731, 2016649, 1051008, 1351286, 827013,
-1770215, 1532686, 1382256, 1042389, 1934245, 1262190, 715013,
-2160671, 1375367, 1726507, 1168625, 1083073, 770403, 533647];
-
-var batch2 = [
-1143948, 1532363, 1210115, 1270395, 533653, 1351289,
-1506791, 789091, 1062890, 540463, 1574095, 957277, 2045622,
-1073658, 788980, 863111, 1989766, 1904131, 682364, 803040,
-1540203, 1904516, 1279259, 1467407, 661381, 2006282, 1574098,
-1528765, 606593, 1528763, 777811, 1574094, 1606980,
-556839, 815598];
-
-var originalTeam = [
-  533649, // Andrew F
-  788980,  // Phillip
-  2016649, // Dierdre
-  815598,  // Zach
-  1073704, // Austin
-  533653 ];// Matt O
-
-var team = [1073704]; // Austin
-
-/*
-team.forEach(function(id, i) {
-  //exports.
-  pingHero(id, 'http://blockaid.meteor.com/detail/QndRZGn5SMdsoocy7');
-});
-*/
-
-/*
-batch1.forEach(function(id, i) {
-  exports.pingHero(id, 'http://blockaid.meteor.com/detail/QndRZGn5SMdsoocy7');
-});
-batch2.forEach(function(id, i) {
-  exports.pingHero(id, 'http://blockaid.meteor.com/detail/oFN79TmdKDxxfrfzr');
-});
-
-*/
 
 sendUsernameChanged = function(userId, oldUsername, newUsername) {
   hc.send_private_message(userId, {
-    message: 'You have successfully changed your username from ' + oldUsername + ' to <strong>' + 
+    message: 'You have successfully changed your username from ' + oldUsername + ' to <strong>' +
     newUsername + '</strong>',
     notify: false,
     message_format: 'html'
-  }, function(err, unknown, resCode) {
-    console.log(err, unknown, resCode);
+  }, function(err, body, resCode) {
+    console.log(err, body, resCode);
   });
+}
+
+// TODO - Ensure that this only runs infrequently...
+// This can be tested with
+// $ meteor shell
+// > HipchatUsers.remove({})
+// > .reload
+if (HipchatUsers.find().count() === 0) {
+  console.log('Importing all users form Hipchat');
+  refreshHipchatUserDB();
 }

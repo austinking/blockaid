@@ -1,6 +1,5 @@
 Blockers = new Mongo.Collection("blockers");
 Comments = new Mongo.Collection("comments");
-PlusOnes = new Mongo.Collection("plusOnes");
 
 if (Meteor.isServer) {
     event_init(Blockers, Comments);

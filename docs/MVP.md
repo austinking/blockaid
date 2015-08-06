@@ -10,4 +10,4 @@ A Super Hero(or heros) can flag that they are helping fix the blocker
 
 [x] All parties can flag a blocker as fixed
 
-[ ] All parties notified with the resolution and steps they need to do to fix their issue
+[x] All parties notified with the resolution and steps they need to do to fix their issue
