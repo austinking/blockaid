@@ -56,7 +56,7 @@
         <ul>
             {{#if blockers}}
                 {{#each blockers}}
-                    <li><a href="/detail/{{_id}}">{{title}}<i class="fa fa-chevron-right"></i></a></li>
+                    <li><a href="/detail/{{_id}}">{{title}} <span class="plusOneCount">+{{plusOneCount}}</span>  <i class="fa fa-chevron-right"></i></a></li>
                 {{/each}}
             {{else}}
                 <p>No one is blocked! <small>Is this real life?</small></p>
@@ -92,7 +92,7 @@
 
 <template name="detail">
     <div class="section u-clearFix">
-        <h3 class="section-header">{{title}} <small>{{createdAt}}</small></h3>
+        <h3 class="section-header">{{title}} <small>{{createdDate}}</small></h3>
 
         <p>{{desc}}</p>
 
@@ -140,7 +140,7 @@
     <div class="discussion-item">
         <strong class="discussion-item-title">
             <span class="discussion-item-userName">{{#if username}}{{username}}{{else}}Anonymous{{/if}}</span>
-            <small>{{createdAt}}</small>
+            <small>{{createdDate}}</small>
 
             {{#if isOwner}}
                 <a class="edit-comment">{{title}}<i class="fa fa-pencil"></i></a>
@@ -153,17 +153,16 @@
 </template>
 
 <template name="badUsername">
-    <div class="section u-clearFix">
+    <div class="section badUsername u-clearFix">
         <h3 class="section-header">Bad Username!</h3>
-        <p>Your username <strong><code>{{currentUser.username}}</code></strong> does not match
-            any HipChat usernames.</p>
+        <p>Your username <strong><code>{{currentUser.username}}</code></strong> does not match any HipChat usernames.</p>
         <p><strong>Please change your username in the form below</strong> to match your "HipChat mention name". </p>
         <h4>Update Username Form</h4>
         <form id="bad-username-form">
-            <fieldset><label for="username" title="mention username">@</label>
-            <input id="username" value="{{currentUser.username}}" />
+            <fieldset>
+                <label for="username" title="mention username">@</label><input id="username" value="{{currentUser.username}}" />
             </fieldset>
-            <button>Update username</button>
+            <button class="btn btn-teal">Update username</button>
         </form>
     </div>
     <div class="section">

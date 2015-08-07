@@ -1,6 +1,9 @@
 Template.comment.helpers({
     isOwner: function() {
         return this.owner === Meteor.userId();
+    },
+    createdDate: function () {
+        return moment(this.createdAt).format('ddd MMM Do, YYYY - h:m');
     }
 });
 

@@ -14,7 +14,7 @@ Meteor.methods({
             owner: Meteor.userId(),
             username: Meteor.user().username,
             resolved: false,
-            createdAt: moment().format('ddd MMM Do, YYYY - h:m'),
+            createdAt: new Date(),
             plusOnes: []
         });
     },
@@ -36,7 +36,7 @@ Meteor.methods({
         plusOnes.push({
             ownerId: ownerId,
             username: Meteor.user().username,
-            createdAt: moment().format('ddd MMM Do, YYYY - h:m')
+            createdAt: new Date()
         });
 
         Blockers.update(id, {
@@ -53,7 +53,7 @@ Meteor.methods({
             text: text,
             owner: Meteor.userId(),
             username: Meteor.user().username,
-            createdAt: moment().format('ddd MMM Do, YYYY - h:m')
+            createdAt: new Date()
         });
     },
     editComment: function(id, owner, text) {

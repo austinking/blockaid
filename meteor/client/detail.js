@@ -4,6 +4,9 @@ Template.detail.helpers({
             blockerId: this._id
         });
     },
+    createdDate: function () {
+        return moment(this.createdAt).format('ddd MMM Do, YYYY - h:mm');
+    },
     hasPlusOned: function () {
         return _.findWhere(this.plusOnes, {ownerId: Meteor.userId()});
     }
