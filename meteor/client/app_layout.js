@@ -29,7 +29,7 @@ function validateUsername() {
             setTimeout(validateUsername, 1000);
             return;
         }
-        Meteor.call('validateUsername', username.innerText, function(err, isUsernameValid) {
+        Meteor.call('validateUsername', username.innerHTML, function(err, isUsernameValid) {
             if (err) {
                 console.log(err);
             } else if (isUsernameValid === false) {
