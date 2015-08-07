@@ -56,7 +56,7 @@
         <ul>
             {{#if blockers}}
                 {{#each blockers}}
-                    <li><a href="/detail/{{_id}}">{{title}} <span class="plusOneCount">+{{plusOneCount}}</span>  <i class="fa fa-chevron-right"></i></a></li>
+                    <li><a href="/detail/{{_id}}">{{title}} {{#if plusOneCount}}<span class="plusOneCount">+{{plusOneCount}}</span>{{/if}}  <i class="fa fa-chevron-right"></i></a></li>
                 {{/each}}
             {{else}}
                 <p>No one is blocked! <small>Is this real life?</small></p>
