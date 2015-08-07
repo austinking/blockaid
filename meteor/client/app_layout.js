@@ -18,14 +18,23 @@ Template.appLayout.onRendered(function() {
     if (window.location.pathname === '/bad-username') {
         return;
     }
-    setTimeout(function() {
-        var username = document.getElementById('current-username').innerText;
-        Meteor.call('validateUsername', username, function(err, isUsernameValid) {
+    setTimeout(validateUsername, 1000);
+});
+
+function validateUsername() {
+
+        var username = document.getElementById('current-username');
+        if (username === null) {
+            console.log('username is null, sleeping');
+            setTimeout(validateUsername, 1000);
+            return;
+        }
+        Meteor.call('validateUsername', username.innerText, function(err, isUsernameValid) {
             if (err) {
                 console.log(err);
             } else if (isUsernameValid === false) {
                 window.location.assign('/bad-username');
             }
         });
-    }, 1000);
-});
+
+}
