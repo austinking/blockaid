@@ -149,6 +149,12 @@ a:hover {
 .sidebar .login-form label {
 	font-size: 1.2rem;
 }
+.sidebar .error-message {
+	text-align: center;
+    border-radius: 3px;
+    color: red;
+    padding: 2px 0;
+}
 
 .blockaid-logo {
 	background-blend-mode: multiply;
@@ -230,6 +236,10 @@ a:hover {
 	position: absolute;
 	right: 15px;
 	top: 50%;
+}
+
+.detail-body {
+	margin-bottom: 30px;
 }
 
 .discussion-item {
